@@ -10,7 +10,7 @@ app.get("/item", itemController.getGeral);
 app.get("/item/:id", itemController.getWithId);
 app.post("/item", itemController.postItem);
 app.put("/item/:id", itemController.updateItem);
-app.delete("/:id", itemController.deleteItem);
+app.delete("/item/:id", itemController.deleteItem);
 
 
 export default app;
