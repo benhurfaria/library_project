@@ -1,2 +1,4 @@
 item_project/node_modules/
 user_project/node_modules/
+item_project/.env
+user_project/.env
