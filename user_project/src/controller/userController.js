@@ -31,7 +31,7 @@ async function postUser(req, res){
     }
 }
 
-async function updateItem(req, res){
+async function updateUser(req, res){
     const id = parseInt(req.params.id);
     const {autor, ano_lancamento, titulo} = req.body;
     try{
@@ -43,7 +43,7 @@ async function updateItem(req, res){
     }
 }
 
-async function deleteItem(req, res){
+async function deleteUser(req, res){
     const id = parseInt(req.params.id)
     try{
         await connection.query('DELETE FROM usuario WHERE id = $1',[id]);
@@ -53,4 +53,4 @@ async function deleteItem(req, res){
     }
 }
 
-export { getGeral };
+export { getGeral, getWithId, postUser, updateUser, deleteUser };
