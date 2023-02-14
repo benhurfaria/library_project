@@ -1,4 +1,5 @@
 import { connection } from "../database.js";
+import { userSchema } from "../validation/userSchema.js";
 
 async function getGeral(req, res){
     try{
@@ -21,19 +22,34 @@ async function getWithId(req, res){
 }
 
 async function postUser(req, res){
-    const {autor, ano_lancamento, titulo} = req.body
+    const validate = userSchema.validate(req.body);
+    if(validate.error){
+        res.sendStatus(400);
+        return;
+    }
+
+    const {nome, email, cpf, senha} = req.body
+    
     try{
-        await connection.query('INSERT INTO usuario(nome, email, cpf, senha) VALUES ($1, $2, $3, $4) RETURNING *',
+        await connection.query('INSERT INTO usuario(nome, email, cpf, senha) VALUES ($1, $2, $3, $4) RETURNING *;',
         [nome, email, cpf, senha]);
         res.sendStatus(200);
-    }catch{
+    }catch(err){
+        console.log(err);
         res.sendStatus(500);
     }
 }
 
 async function updateUser(req, res){
     const id = parseInt(req.params.id);
-    const {autor, ano_lancamento, titulo} = req.body;
+
+    const validate = userSchema.validate(req.body);
+    if(validate.error){
+        res.sendStatus(400);
+        return;
+    }
+    
+    const {nome, email, cpf, senha} = req.body
     try{
         await connection.query('UPDATE usuario SET nome = $1, email= $2, cpf= $3, senha= $4 WHERE id= $5',
         [nome, email, cpf, senha, id]);

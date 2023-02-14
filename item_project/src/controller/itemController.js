@@ -1,4 +1,5 @@
 import { connection } from "../database.js";
+import { itemSchema } from "../validation/itemSchema.js";
 
 async function getGeral(req, res){
     try{
@@ -21,6 +22,13 @@ async function getWithId(req, res){
 }
 
 async function postItem(req, res){
+    const validate = itemSchema.validate(req.body);
+    
+    if(validate.error){
+        res.sendStatus(400);
+        return;
+    }
+
     const {autor, ano_lancamento, titulo} = req.body
     try{
         await connection.query('INSERT INTO item(autor, ano_lancamento, titulo) VALUES ($1, $2, $3) RETURNING *',
@@ -33,6 +41,12 @@ async function postItem(req, res){
 
 async function updateItem(req, res){
     const id = parseInt(req.params.id);
+    const validate = itemSchema.validate(req.body);
+    
+    if(validate.error){
+        res.sendStatus(400);
+        return;
+    }
     const {autor, ano_lancamento, titulo} = req.body;
     try{
         await connection.query('UPDATE item SET autor = $1, ano_lancamento= $2, titulo= $3 WHERE id= $4',
