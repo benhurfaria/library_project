@@ -171,40 +171,41 @@
                                         }
                                     }
                                 }
-                            },
-                            "400": {
-                                "description": "Erro na requisição",
-                                "content": {
-                                    "application/json": {
-                                        "schema": {
-                                            "type": "object",
-                                            "properties": {
-                                                "message": {
-                                                    "type": "string",
-                                                    "description": "uma mensagem de erro indicando que o item da biblioteca não foi encontrado"
-                                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Erro na requisição",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que o item da biblioteca não foi encontrado"
                                             }
                                         }
                                     }
                                 }
-                            },
-                            "500": {
-                                "description": "Erro interno do servidor",
-                                "content": {
-                                    "application/json": {
-                                        "schema": {
-                                            "type": "object",
-                                            "properties": {
-                                                "message": {
-                                                    "type": "string",
-                                                    "description": "uma mensagem de erro indicando que houve um erro no servidor"
-                                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Erro interno do servidor",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que houve um erro no servidor"
                                             }
                                         }
                                     }
                                 }
                             }
                         }
+                        
                     }
                 },
                 "delete": {
