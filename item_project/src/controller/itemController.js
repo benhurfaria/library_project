@@ -1,6 +1,21 @@
 import { connection } from "../database.js";
 import { itemSchema } from "../validation/itemSchema.js";
 
+
+/**
+ * @swagger
+ * /item:
+ *   get:
+ *     tags:
+ *       - Itens
+ *     summary: Pegar todos os itens
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 async function getGeral(req, res){
     try{
         const result = await connection.query("SELECT * FROM item ORDER BY id;");
@@ -9,6 +24,20 @@ async function getGeral(req, res){
         res.sendStatus(500);
     }
 }
+
+/**
+ * @swagger
+ * /item/:id:
+ *   get:
+ *     tags:
+ *       - Item por ID
+ *     summary: Pega o item especifico por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 async function getWithId(req, res){
     try{
@@ -20,6 +49,25 @@ async function getWithId(req, res){
         res.sendStatus(500);
     }
 }
+
+/**
+ * @swagger
+ * /item:
+ *   post:
+ *     tags:
+ *       - Item
+ *     summary: adiciona os itens a biblioteca
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 
 async function postItem(req, res){
     const validate = itemSchema.validate(req.body);
@@ -39,6 +87,24 @@ async function postItem(req, res){
     }
 }
 
+/**
+ * @swagger
+ * /item/:id:
+ *   put:
+ *     tags:
+ *       - Item por ID
+ *     summary: Atualizar item por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 async function updateItem(req, res){
     const id = parseInt(req.params.id);
     const validate = itemSchema.validate(req.body);
@@ -56,6 +122,24 @@ async function updateItem(req, res){
         res.sendStatus(500)
     }
 }
+
+/**
+ * @swagger
+ * /item/:id:
+ *   delete:
+ *     tags:
+ *       - Item por ID
+ *     summary: Deleta item por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 async function deleteItem(req, res){
     const id = parseInt(req.params.id)

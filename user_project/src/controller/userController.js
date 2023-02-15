@@ -1,6 +1,20 @@
 import { connection } from "../database.js";
 import { userSchema } from "../validation/userSchema.js";
 
+/**
+ * @swagger
+ * /usuario:
+ *   get:
+ *     tags:
+ *       - Usuario
+ *     summary: Pegar todos os usuarios
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 async function getGeral(req, res){
     try{
         const result = await connection.query("SELECT * FROM usuario ORDER BY id;");
@@ -9,6 +23,20 @@ async function getGeral(req, res){
         res.sendStatus(500);
     }
 }
+
+/**
+ * @swagger
+ * /usuario/:id:
+ *   get:
+ *     tags:
+ *       - Usuario por ID
+ *     summary: Pega o usuario especifico por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 async function getWithId(req, res){
     try{
@@ -20,6 +48,24 @@ async function getWithId(req, res){
         res.sendStatus(500);
     }
 }
+
+/**
+ * @swagger
+ * /usuario:
+ *   post:
+ *     tags:
+ *       - Usuario
+ *     summary: adiciona os usuarios a biblioteca
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 async function postUser(req, res){
     const validate = userSchema.validate(req.body);
@@ -40,6 +86,24 @@ async function postUser(req, res){
     }
 }
 
+/**
+ * @swagger
+ * /usuario/:id:
+ *   put:
+ *     tags:
+ *       - Usuario por ID
+ *     summary: Atualizar o usuario por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 async function updateUser(req, res){
     const id = parseInt(req.params.id);
 
@@ -58,6 +122,24 @@ async function updateUser(req, res){
         res.sendStatus(500)
     }
 }
+
+/**
+ * @swagger
+ * /usuario/:id:
+ *   delete:
+ *     tags:
+ *       - Usuario por ID
+ *     summary: Deleta usuario por ID
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Resposta de sucesso
+ *       400:
+ *         description: Erro na requisição
+ *       500:
+ *         description: Erro interno do servidor
+ */
 
 async function deleteUser(req, res){
     const id = parseInt(req.params.id)

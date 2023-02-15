@@ -1,0 +1,277 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Usuario API",
+        "version": "1.0.0",
+        "description": "API para gerenciamento dos usuarios da biblioteca"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001"
+        }
+    ],
+    "paths": {
+        "/usuario": {
+            "get": {
+                "summary": "Obter os usuarios da biblioteca",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "adiciona a lista de usuarios a biblioteca",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resposta de sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "O ID do usuario da biblioteca"
+                                        },
+                                        "nome": {
+                                            "type": "string",
+                                            "description": "O nome do usuario da biblioteca"
+                                        },
+                                        "email": {
+                                            "type": "integer",
+                                            "description": "O email do usuario da biblioteca"
+                                        },
+                                        "cpf": {
+                                            "type": "string",
+                                            "description": "O cpf do usuario da biblioteca"
+                                        },
+                                        "senha": {
+                                            "type": "string",
+                                            "description": "A senha do usuario da biblioteca"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Erro na requisição",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que o itens da biblioteca não foi encontrados"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Erro interno do servidor",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/usuario/:id": {
+                "get": {
+                    "summary": "Obter um usuario da biblioteca",
+                    "description": "Retorna um usuario especifico da biblioteca",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "O ID do usuario da biblioteca a ser recuperado"
+                    },
+                    "responses": {
+                        "500": {
+                            "description": "Erro interno do servidor",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "summary": "Atualiza os dados usuario",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Resposta de sucesso na atualizacao do usuario",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "description": "O ID do usuario da biblioteca"
+                                            },
+                                            "nome": {
+                                                "type": "string",
+                                                "description": "O nome do usuario da biblioteca"
+                                            },
+                                            "email": {
+                                                "type": "integer",
+                                                "description": "O email do usuario da biblioteca"
+                                            },
+                                            "cpf": {
+                                                "type": "string",
+                                                "description": "O cpf do usuario da biblioteca"
+                                            },
+                                            "senha": {
+                                                "type": "string",
+                                                "description": "A senha do usuario da biblioteca"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "400": {
+                                "description": "Erro na requisição",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que o item da biblioteca não foi encontrado"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "500": {
+                                "description": "Erro interno do servidor",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "delete": {
+                    "summary": "Deleta o usuario do banco de dados",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Resposta de sucesso ao deletar o usuario do banco de dados",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "description": "O ID do usuario da biblioteca"
+                                            },
+                                            "nome": {
+                                                "type": "string",
+                                                "description": "O nome do usuario da biblioteca"
+                                            },
+                                            "email": {
+                                                "type": "integer",
+                                                "description": "O email do usuario da biblioteca"
+                                            },
+                                            "cpf": {
+                                                "type": "string",
+                                                "description": "O cpf do usuario da biblioteca"
+                                            },
+                                            "senha": {
+                                                "type": "string",
+                                                "description": "A senha do usuario da biblioteca"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "500": {
+                                "description": "Erro interno do servidor",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,265 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Item API",
+        "version": "1.0.0",
+        "description": "API para gerenciamento dos itens da biblioteca"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001"
+        }
+    ],
+    "paths": {
+        "/item": {
+            "get": {
+                "summary": "Obter os itens da biblioteca",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "adiciona a lista de itens",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resposta de sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "O ID do item da biblioteca"
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "description": "O autor do item da biblioteca"
+                                        },
+                                        "ano_lançamento": {
+                                            "type": "integer",
+                                            "description": "O ano de lancamento do item da biblioteca"
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "description": "O titulo do item da biblioteca"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Erro na requisição",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que o itens da biblioteca não foi encontrados"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Erro interno do servidor",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/item/:id": {
+                "get": {
+                    "summary": "Obter um item da biblioteca",
+                    "description": "Retorna um item especifico da biblioteca",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "O ID do item da biblioteca a ser recuperado"
+                    },
+                    "responses": {
+                        "500": {
+                            "description": "Erro interno do servidor",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "summary": "Atualiza o item",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Resposta de sucesso na atualizacao do item",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "description": "O ID do item da biblioteca"
+                                            },
+                                            "autor": {
+                                                "type": "string",
+                                                "description": "O autor do item da biblioteca"
+                                            },
+                                            "ano_lançamento": {
+                                                "type": "integer",
+                                                "description": "O ano de lancamento do item da biblioteca"
+                                            },
+                                            "titulo": {
+                                                "type": "string",
+                                                "description": "O titulo do item da biblioteca"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "400": {
+                                "description": "Erro na requisição",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que o item da biblioteca não foi encontrado"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "500": {
+                                "description": "Erro interno do servidor",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "delete": {
+                    "summary": "Deleta o item do acervo",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Resposta de sucesso ao deletar o item do acervo",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "description": "O ID do item da biblioteca"
+                                            },
+                                            "autor": {
+                                                "type": "string",
+                                                "description": "O autor do item da biblioteca"
+                                            },
+                                            "ano_lançamento": {
+                                                "type": "integer",
+                                                "description": "O ano de lancamento do item da biblioteca"
+                                            },
+                                            "titulo": {
+                                                "type": "string",
+                                                "description": "O titulo do item da biblioteca"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "500": {
+                                "description": "Erro interno do servidor",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "uma mensagem de erro indicando que houve um erro no servidor"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
