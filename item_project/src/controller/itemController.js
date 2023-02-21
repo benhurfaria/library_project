@@ -17,6 +17,7 @@ import { itemSchema } from "../validation/itemSchema.js";
  */
 
 async function getGeral(req, res){
+    
     try{
         const result = await connection.query("SELECT * FROM item ORDER BY id;");
         res.send(result.rows);
@@ -71,18 +72,20 @@ async function getWithId(req, res){
 
 async function postItem(req, res){
     const validate = itemSchema.validate(req.body);
-    
+    console.log(req.body);
+    console.log(validate);
     if(validate.error){
         res.sendStatus(400);
         return;
     }
 
-    const {autor, ano_lancamento, titulo} = req.body
+    const {autor, ano_lancamento, titulo, status} = req.body
     try{
-        await connection.query('INSERT INTO item(autor, ano_lancamento, titulo) VALUES ($1, $2, $3) RETURNING *',
-        [autor, ano_lancamento, titulo]);
+        await connection.query('INSERT INTO item(autor, ano_lancamento, titulo, status) VALUES ($1, $2, $3, $4) RETURNING *',
+        [autor, ano_lancamento, titulo, status]);
         res.sendStatus(200);
-    }catch{
+    }catch(err){
+        console.log(err);
         res.sendStatus(500);
     }
 }

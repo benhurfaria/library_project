@@ -1,6 +1,76 @@
 import { connection } from "../database.js";
 import { userSchema } from "../validation/userSchema.js";
+import {v4 as uuid} from "uuid";
 
+async function signOut(req, res) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    console.log(token);
+    try {
+      await connection.query(
+        `
+              DELETE FROM sessions WHERE token = $1;
+          `,
+        [token],
+      );
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);  
+      res.sendStatus(500);
+    }
+}
+
+async function signIn(req, res){
+    const {
+        email,
+        senha
+    } = req.body;
+    
+    try{
+        const result = await connection.query(`SELECT * FROM usuario WHERE email = $1`, [email]);
+
+        const user = result.rows[0];
+        
+        if(user && user.senha == senha){
+            const token = uuid();
+            await connection.query(`
+            INSERT INTO sessions ("idUser", token) VALUES ($1, $2);`,[user.id, token]
+            );
+            res.send({token, nome: user.nome});
+        } else{
+            res.sendStatus(401);
+        }
+    }catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+async function signUp(req, res) {
+    const validation = userSchema.validate(req.body);
+    
+    if (validation.error) {
+      res.sendStatus(400);
+      return;
+    }
+  
+    const { nome, email, cpf, senha } = req.body;
+    
+  
+    try {
+      await connection.query(
+        `
+              INSERT INTO usuario (nome, email, cpf, senha) VALUES ($1, $2, $3, $4);
+          `,
+        [nome, email, cpf, senha],
+      );
+      res.sendStatus(200);
+  
+      return;
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+}
 /**
  * @swagger
  * /usuario:
@@ -151,4 +221,5 @@ async function deleteUser(req, res){
     }
 }
 
-export { getGeral, getWithId, postUser, updateUser, deleteUser };
+export { getGeral, getWithId, postUser, updateUser, deleteUser, signUp, signIn, signOut };
+

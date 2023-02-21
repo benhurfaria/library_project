@@ -5,7 +5,7 @@ const app = express();
 
 const options = {
   swaggerDefinition: require('./swagger.json'),
-  apis: ['./src/*.js'], // caminho dos arquivos de rotas da sua aplicação
+  apis: ['./src/app.js'], // caminho dos arquivos de rotas da sua aplicação
 };
 
 const swaggerSpec = swaggerJSDoc(options);
